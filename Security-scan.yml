@@ -31,10 +31,11 @@ jobs:
         with:
           sarif_file: trivy-results.sarif
 
-      - name: Run Gitleaks secret scan
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+     - name: Run Gitleaks secret scan
+  uses: zricethezav/gitleaks-action@v2
+  with:
+    args: detect --source=. --report-format=sarif --report-path=gitleaks.sarif
+
 
       - name: Upload Gitleaks SARIF report
         uses: github/codeql-action/upload-sarif@v3
